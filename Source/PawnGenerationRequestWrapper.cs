@@ -39,6 +39,7 @@ namespace EdB.PrepareCarefully {
                 false, // bool worldPawnFactionDoesntMatter = false
                 null, // Predicate < Pawn > validator = null
                 null, // float ? minChanceToRedressWorldPawn = null
+                null, // Chance to redress pawn
                 fixedBiologicalAge, // float ? fixedBiologicalAge = null
                 null, // float ? fixedChronologicalAge = null
                 fixedGender, // Gender ? fixedGender = null

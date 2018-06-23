@@ -126,7 +126,7 @@ namespace EdB.PrepareCarefully {
                 FactionRelation rel = new FactionRelation();
                 rel.other = Faction.OfPlayer;
                 rel.goodwill = 50;
-                rel.hostile = false;
+                rel.kind = FactionRelationKind.Neutral;
                 (typeof(Faction).GetField("relations", BindingFlags.Instance | BindingFlags.NonPublic)
                     .GetValue(faction) as List<FactionRelation>).Add(rel);
             }

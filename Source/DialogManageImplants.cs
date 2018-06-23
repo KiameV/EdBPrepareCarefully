@@ -96,7 +96,7 @@ namespace EdB.PrepareCarefully {
         protected string cachedBlockedSelectionAlert = null;
 
         public DialogManageImplants(CustomPawn pawn) {
-            this.closeOnEscapeKey = true;
+            this.closeOnClickedOutside = true;
             this.doCloseX = true;
             this.absorbInputAroundWindow = true;
             this.forcePause = true;
@@ -376,7 +376,7 @@ namespace EdB.PrepareCarefully {
             if (recipe.Disabled && !recipe.Selected) {
                 return;
             }
-            SoundDefOf.TickTiny.PlayOneShotOnCamera();
+            SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
             if (recipe.Selected) {
                 recipe.Selected = false;
                 foreach (var part in recipe.Parts) {
@@ -415,7 +415,7 @@ namespace EdB.PrepareCarefully {
             if (part.Disabled && !part.Selected) {
                 return;
             }
-            SoundDefOf.TickTiny.PlayOneShotOnCamera();
+            SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
             if (part.Selected) {
                 part.Selected = false;
                 RemoveImplant(recipe, part);

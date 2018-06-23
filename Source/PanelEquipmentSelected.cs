@@ -58,10 +58,10 @@ namespace EdB.PrepareCarefully {
             table.SupportSelection = true;
             table.RowHeight = 42;
             table.SelectedAction = (EquipmentSelection entry) => {
-                SoundDefOf.TickTiny.PlayOneShotOnCamera();
+                SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
             };
             table.DoubleClickAction = (EquipmentSelection entry) => {
-                SoundDefOf.TickHigh.PlayOneShotOnCamera();
+                SoundDefOf.Tick_High.PlayOneShotOnCamera();
                 if (entry.Count > 0) {
                     EquipmentCountUpdated(entry, entry.Count - 1);
                 }
@@ -149,7 +149,7 @@ namespace EdB.PrepareCarefully {
             }
 
             if (Widgets.ButtonText(RectRemoveButton, "EdB.PC.Panel.SelectedEquipment.Remove".Translate(), true, false, table.Selected != null)) {
-                SoundDefOf.TickHigh.PlayOneShotOnCamera();
+                SoundDefOf.Tick_High.PlayOneShotOnCamera();
                 EquipmentRemoved(table.Selected);
                 table.Selected = null;
             }
@@ -186,16 +186,22 @@ namespace EdB.PrepareCarefully {
             }
         }
         protected EquipmentSelection FindEntry(EquipmentSelection equipment) {
-            ThingDef def = equipment.ThingDef;
-            EquipmentRecord entry = PrepareCarefully.Instance.EquipmentDatabase[equipment.Key];
-            if (entry == null) {
-                string thing = def != null ? def.defName : "null";
-                string stuff = equipment.StuffDef != null ? equipment.StuffDef.defName : "null";
-                Log.Warning(string.Format("Could not draw unrecognized resource/equipment.  Invalid item was removed.  This may have been caused by an invalid thing/stuff combination. (thing = {0}, stuff={1})", thing, stuff));
-                PrepareCarefully.Instance.RemoveEquipment(equipment);
-                return null;
+            try
+            {
+                ThingDef def = equipment.ThingDef;
+                EquipmentRecord entry = PrepareCarefully.Instance.EquipmentDatabase[equipment.Key];
+                if (entry == null)
+                {
+                    string thing = def != null ? def.defName : "null";
+                    string stuff = equipment.StuffDef != null ? equipment.StuffDef.defName : "null";
+                    Log.Warning(string.Format("Could not draw unrecognized resource/equipment.  Invalid item was removed.  This may have been caused by an invalid thing/stuff combination. (thing = {0}, stuff={1})", thing, stuff));
+                    PrepareCarefully.Instance.RemoveEquipment(equipment);
+                    return null;
+                }
+                return PrepareCarefully.Instance.Find(entry);
             }
-            return PrepareCarefully.Instance.Find(entry);
+            catch { }
+            return null;
         }
 
         public void EquipmentAdded(EquipmentRecord entry) {

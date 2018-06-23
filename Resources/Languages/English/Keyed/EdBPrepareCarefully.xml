@@ -120,10 +120,10 @@
 
   <EdB.PC.Pawn.AgeWithChronological>{0} ({1})</EdB.PC.Pawn.AgeWithChronological>
   <EdB.PC.Pawn.AgeWithoutChronological>{0}</EdB.PC.Pawn.AgeWithoutChronological>
-  <EdB.PC.Pawn.BodyType.Average>Average</EdB.PC.Pawn.BodyType.Average>
-  <EdB.PC.Pawn.BodyType.Fat>Heavyset</EdB.PC.Pawn.BodyType.Fat>
-  <EdB.PC.Pawn.BodyType.Hulk>Hulk</EdB.PC.Pawn.BodyType.Hulk>
-  <EdB.PC.Pawn.BodyType.Thin>Thin</EdB.PC.Pawn.BodyType.Thin>
+  <EdB.PC.Pawn.BodyTypeDefOf.Average>Average</EdB.PC.Pawn.BodyTypeDefOf.Average>
+  <EdB.PC.Pawn.BodyTypeDefOf.Fat>Heavyset</EdB.PC.Pawn.BodyTypeDefOf.Fat>
+  <EdB.PC.Pawn.BodyTypeDefOf.Hulk>Hulk</EdB.PC.Pawn.BodyTypeDefOf.Hulk>
+  <EdB.PC.Pawn.BodyTypeDefOf.Thin>Thin</EdB.PC.Pawn.BodyTypeDefOf.Thin>
   <EdB.PC.Pawn.HiddenPawnDescriptionWithGender>{0}, {1}</EdB.PC.Pawn.HiddenPawnDescriptionWithGender>
   <EdB.PC.Pawn.HiddenPawnDescriptionNoGender>{0}</EdB.PC.Pawn.HiddenPawnDescriptionNoGender>
   <EdB.PC.Pawn.HiddenPawnName>Hidden {0}</EdB.PC.Pawn.HiddenPawnName>
@@ -131,7 +131,7 @@
   <EdB.PC.Pawn.PawnDescriptionWithGender>{0}, {1}, age {2}</EdB.PC.Pawn.PawnDescriptionWithGender>
   <EdB.PC.Pawn.PawnDescriptionNoGender>{0}, age {1}</EdB.PC.Pawn.PawnDescriptionNoGender>
   <EdB.PC.Pawn.PawnLayer.Accessory>Accessory</EdB.PC.Pawn.PawnLayer.Accessory>
-  <EdB.PC.Pawn.PawnLayer.BodyType>Body Type</EdB.PC.Pawn.PawnLayer.BodyType>
+  <EdB.PC.Pawn.PawnLayer.BodyTypeDef>Body Type</EdB.PC.Pawn.PawnLayer.BodyTypeDef>
   <EdB.PC.Pawn.PawnLayer.BottomClothingLayer>Bottom Clothing Layer</EdB.PC.Pawn.PawnLayer.BottomClothingLayer>
   <EdB.PC.Pawn.PawnLayer.Hair>Hair</EdB.PC.Pawn.PawnLayer.Hair>
   <EdB.PC.Pawn.PawnLayer.Hat>Hat</EdB.PC.Pawn.PawnLayer.Hat>

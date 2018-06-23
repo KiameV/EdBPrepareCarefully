@@ -76,7 +76,7 @@ namespace EdB.PrepareCarefully {
             }
         }
 
-        public BodyType BodyType {
+        public BodyTypeDef BodyTypeDef {
             get {
                 return pawn.story.bodyType;
             }
@@ -228,7 +228,7 @@ namespace EdB.PrepareCarefully {
                     injury.BodyPartRecord = hediff.Part;
                     injury.Option = option;
                     injury.Severity = hediff.Severity;
-                    HediffComp_GetsOld getsOld = hediff.TryGetComp<HediffComp_GetsOld>();
+                    HediffComp_GetsPermanent getsOld = hediff.TryGetComp<HediffComp_GetsPermanent>();
                     if (getsOld != null) {
                         injury.PainFactor = getsOld.painFactor;
                     }
@@ -603,7 +603,7 @@ namespace EdB.PrepareCarefully {
                 if (pawn.story.adulthood == null) {
                     return name.Nick;
                 }
-                return name.Nick + ", " + pawn.story.adulthood.TitleShort;
+                return name.Nick + ", " + pawn.story.adulthood.titleShort;
             }
         }
 
@@ -817,10 +817,10 @@ namespace EdB.PrepareCarefully {
         public string ProfessionLabel {
             get {
                 if (IsAdult) {
-                    return Adulthood.Title;
+                    return Adulthood.title;
                 }
                 else {
-                    return Childhood.Title;
+                    return Childhood.title;
                 }
             }
         }
@@ -828,10 +828,10 @@ namespace EdB.PrepareCarefully {
         public string ProfessionLabelShort {
             get {
                 if (IsAdult) {
-                    return Adulthood.TitleShort;
+                    return Adulthood.titleShort;
                 }
                 else {
-                    return Childhood.TitleShort;
+                    return Childhood.titleShort;
                 }
             }
         }
@@ -883,7 +883,7 @@ namespace EdB.PrepareCarefully {
 
                 ThingDef apparel = selectedApparel[i];
                 if (apparel.apparel != null && apparel.apparel.layers != null && apparel.apparel.layers.Count > 1) {
-                    foreach (ApparelLayer layer in apparel.apparel.layers) {
+                    foreach (ApparelLayerDef layer in apparel.apparel.layers) {
                         // If the apparel's layer matches the current layer, go to the apparel's next layer. 
                         if (layer == PawnLayers.ToApparelLayer(i)) {
                             continue;
@@ -1141,7 +1141,7 @@ namespace EdB.PrepareCarefully {
             }
             set {
                 pawn.story.melanin = value;
-                this.colors[PawnLayers.BodyType] = this.colors[PawnLayers.HeadType] = pawn.story.SkinColor;
+                this.colors[PawnLayers.BodyTypeDef] = this.colors[PawnLayers.HeadType] = pawn.story.SkinColor;
                 if (alienRace != null) {
                     SkinColor = PawnSkinColors.GetSkinColor(value);
                 }
@@ -1204,16 +1204,16 @@ namespace EdB.PrepareCarefully {
         }
 
         protected void ResetGender() {
-            List<BodyType> bodyTypes = PrepareCarefully.Instance.Providers.BodyTypes.GetBodyTypesForPawn(this);
+            List<BodyTypeDef> bodyTypes = PrepareCarefully.Instance.Providers.BodyTypes.GetBodyTypesForPawn(this);
             if (pawn.gender == Gender.Female) {
                 if (HairDef.hairGender == HairGender.Male) {
                     HairDef = DefDatabase<HairDef>.AllDefsListForReading.Find((HairDef def) => {
                         return def.hairGender != HairGender.Male;
                     });
                 }
-                if (BodyType == BodyType.Male) {
-                    if (bodyTypes.Contains(BodyType.Female)) {
-                        BodyType = BodyType.Female;
+                if (BodyTypeDef == BodyTypeDefOf.Male) {
+                    if (bodyTypes.Contains(BodyTypeDefOf.Female)) {
+                        BodyTypeDef = BodyTypeDefOf.Female;
                     }
                 }
             }
@@ -1223,9 +1223,9 @@ namespace EdB.PrepareCarefully {
                         return def.hairGender != HairGender.Female;
                     });
                 }
-                if (BodyType == BodyType.Female) {
-                    if (bodyTypes.Contains(BodyType.Male)) {
-                        BodyType = BodyType.Male;
+                if (BodyTypeDef == BodyTypeDefOf.Female) {
+                    if (bodyTypes.Contains(BodyTypeDefOf.Male)) {
+                        BodyTypeDef = BodyTypeDefOf.Male;
                     }
                 }
             }

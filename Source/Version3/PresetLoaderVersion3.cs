@@ -398,22 +398,23 @@ namespace EdB.PrepareCarefully {
             
             // Get the body type from the save record.  If there's no value in the save, then assign the 
             // default body type from the pawn's backstories.
-            BodyType? bodyType = null;
-            try {
-                bodyType = (BodyType)Enum.Parse(typeof(BodyType), record.bodyType);
-            }
-            catch (Exception) {
-            }
-            if (!bodyType.HasValue) {
-                if (pawn.Adulthood != null) {
+            BodyTypeDef bodyType = null;
+            if (BodyTypeDefOf.Fat.ToString().Equals(record.bodyType))
+                bodyType = BodyTypeDefOf.Fat;
+            else if (BodyTypeDefOf.Hulk.ToString().Equals(record.bodyType))
+                bodyType = BodyTypeDefOf.Hulk;
+            else if (BodyTypeDefOf.Thin.ToString().Equals(record.bodyType))
+                bodyType = BodyTypeDefOf.Thin;
+            else if (BodyTypeDefOf.Female.ToString().Equals(record.bodyType))
+                bodyType = BodyTypeDefOf.Female;
+            else if (BodyTypeDefOf.Male.ToString().Equals(record.bodyType))
+                bodyType = BodyTypeDefOf.Male;
+            else
+            {
+                if (pawn.Adulthood != null)
                     bodyType = pawn.Adulthood.BodyTypeFor(pawn.Gender);
-                }
-                else {
+                else
                     bodyType = pawn.Childhood.BodyTypeFor(pawn.Gender);
-                }
-            }
-            if (bodyType.HasValue) {
-                pawn.BodyType = bodyType.Value;
             }
             
             pawn.ClearTraits();

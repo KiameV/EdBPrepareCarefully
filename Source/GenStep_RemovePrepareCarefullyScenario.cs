@@ -15,6 +15,8 @@ namespace EdB.PrepareCarefully {
     // more details.
     // TODO: Re-evaluate to see if it would be better to use method routing instead of a map generator step.
     public class GenStep_RemovePrepareCarefullyScenario : GenStep {
+        public override int SeedPart => "EdB.PrepareCarefully.GenStep_RemovePrepareCarefullyScenario".GetHashCode();
+
         public override void Generate(Map map) {
             if (PrepareCarefully.OriginalScenario != null) {
                 Current.Game.Scenario = PrepareCarefully.OriginalScenario;

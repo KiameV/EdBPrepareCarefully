@@ -560,7 +560,7 @@ namespace EdB.PrepareCarefully {
             Style.SetGUIColorForButton(deleteRect);
             GUI.DrawTexture(deleteRect, Textures.TextureButtonDelete);
             if (Widgets.ButtonInvisible(deleteRect, false)) {
-                SoundDefOf.TickTiny.PlayOneShotOnCamera();
+                SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
                 partRemovalList.Add(customPart);
             }
 

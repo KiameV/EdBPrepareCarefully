@@ -21,7 +21,7 @@ namespace EdB.PrepareCarefully {
         private Controller controller;
 
         public Page_PrepareCarefully() {
-            this.closeOnEscapeKey = true;
+            this.closeOnClickedOutside = true;
             // Add the tab views to the tab view list.
             tabViews.Add(tabViewPawns);
             tabViews.Add(tabViewRelationships);
@@ -71,10 +71,13 @@ namespace EdB.PrepareCarefully {
             // This approach to drawing tabs differs a bit from the vanilla approach.  Instead instantiating
             // brand new TabRecord instances every frame, we re-use the same instances and updated their
             // selected field value every frame.
-            TabDrawer.DrawTabs(mainRect, tabViews.Select((ITabView t) => {
-                t.TabRecord.selected = State.CurrentTab == t;
-                return t.TabRecord;
-            }));
+            List<TabRecord> tabRecords = new List<TabRecord>();
+            foreach (ITabView view in tabViews)
+            {
+                view.TabRecord.selected = State.CurrentTab == view;
+                tabRecords.Add(view.TabRecord);
+            }
+            TabDrawer.DrawTabs(mainRect, tabRecords);
 
             // Determine the size of the tab view and draw the current tab.
             Vector2 SizePageMargins = new Vector2(16, 16);

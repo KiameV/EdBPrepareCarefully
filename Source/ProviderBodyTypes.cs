@@ -11,21 +11,21 @@ using Verse.Sound;
 namespace EdB.PrepareCarefully {
     public class ProviderBodyTypes {
         protected Dictionary<ThingDef, OptionsBodyType> raceBodyTypeLookup = new Dictionary<ThingDef, OptionsBodyType>();
-        protected Dictionary<BodyType, string> bodyTypeLabels = new Dictionary<BodyType, string>();
+        protected Dictionary<BodyTypeDef, string> bodyTypeLabels = new Dictionary<BodyTypeDef, string>();
         public ProviderBodyTypes() {
-            bodyTypeLabels.Add(BodyType.Fat, "EdB.PC.Pawn.BodyType.Fat".Translate());
-            bodyTypeLabels.Add(BodyType.Hulk, "EdB.PC.Pawn.BodyType.Hulk".Translate());
-            bodyTypeLabels.Add(BodyType.Thin, "EdB.PC.Pawn.BodyType.Thin".Translate());
-            bodyTypeLabels.Add(BodyType.Male, "EdB.PC.Pawn.BodyType.Average".Translate());
-            bodyTypeLabels.Add(BodyType.Female, "EdB.PC.Pawn.BodyType.Average".Translate());
+            bodyTypeLabels.Add(BodyTypeDefOf.Fat, "EdB.PC.Pawn.BodyTypeDefOf.Fat".Translate());
+            bodyTypeLabels.Add(BodyTypeDefOf.Hulk, "EdB.PC.Pawn.BodyTypeDefOf.Hulk".Translate());
+            bodyTypeLabels.Add(BodyTypeDefOf.Thin, "EdB.PC.Pawn.BodyTypeDefOf.Thin".Translate());
+            bodyTypeLabels.Add(BodyTypeDefOf.Male, "EdB.PC.Pawn.BodyTypeDefOf.Average".Translate());
+            bodyTypeLabels.Add(BodyTypeDefOf.Female, "EdB.PC.Pawn.BodyTypeDefOf.Average".Translate());
         }
         public ProviderAlienRaces AlienRaceProvider {
             get; set;
         }
-        public List<BodyType> GetBodyTypesForPawn(CustomPawn pawn) {
+        public List<BodyTypeDef> GetBodyTypesForPawn(CustomPawn pawn) {
             return GetBodyTypesForPawn(pawn.Pawn);
         }
-        public List<BodyType> GetBodyTypesForPawn(Pawn pawn) {
+        public List<BodyTypeDef> GetBodyTypesForPawn(Pawn pawn) {
             OptionsBodyType bodyTypes;
             if (!raceBodyTypeLookup.TryGetValue(pawn.def, out bodyTypes)) {
                 bodyTypes = InitializeBodyTypes(pawn.def);
@@ -33,7 +33,7 @@ namespace EdB.PrepareCarefully {
             }
             return bodyTypes.GetBodyTypes(pawn.gender);
         }
-        public string GetBodyTypeLabel(BodyType bodyType) {
+        public string GetBodyTypeLabel(BodyTypeDef bodyType) {
             return bodyTypeLabels[bodyType];
         }
         protected OptionsBodyType InitializeBodyTypes(ThingDef def) {
@@ -56,18 +56,18 @@ namespace EdB.PrepareCarefully {
         }
         protected OptionsBodyType InitializeHumanlikeBodyTypes() {
             OptionsBodyType result = new OptionsBodyType();
-            result.MaleBodyTypes.Add(BodyType.Male);
-            result.MaleBodyTypes.Add(BodyType.Thin);
-            result.MaleBodyTypes.Add(BodyType.Fat);
-            result.MaleBodyTypes.Add(BodyType.Hulk);
-            result.FemaleBodyTypes.Add(BodyType.Female);
-            result.FemaleBodyTypes.Add(BodyType.Thin);
-            result.FemaleBodyTypes.Add(BodyType.Fat);
-            result.FemaleBodyTypes.Add(BodyType.Hulk);
-            result.NoGenderBodyTypes.Add(BodyType.Male);
-            result.NoGenderBodyTypes.Add(BodyType.Thin);
-            result.NoGenderBodyTypes.Add(BodyType.Fat);
-            result.NoGenderBodyTypes.Add(BodyType.Hulk);
+            result.MaleBodyTypes.Add(BodyTypeDefOf.Male);
+            result.MaleBodyTypes.Add(BodyTypeDefOf.Thin);
+            result.MaleBodyTypes.Add(BodyTypeDefOf.Fat);
+            result.MaleBodyTypes.Add(BodyTypeDefOf.Hulk);
+            result.FemaleBodyTypes.Add(BodyTypeDefOf.Female);
+            result.FemaleBodyTypes.Add(BodyTypeDefOf.Thin);
+            result.FemaleBodyTypes.Add(BodyTypeDefOf.Fat);
+            result.FemaleBodyTypes.Add(BodyTypeDefOf.Hulk);
+            result.NoGenderBodyTypes.Add(BodyTypeDefOf.Male);
+            result.NoGenderBodyTypes.Add(BodyTypeDefOf.Thin);
+            result.NoGenderBodyTypes.Add(BodyTypeDefOf.Fat);
+            result.NoGenderBodyTypes.Add(BodyTypeDefOf.Hulk);
             return result;
         }
         protected OptionsBodyType InitializeAlienRaceBodyTypes(ThingDef def) {
@@ -77,14 +77,14 @@ namespace EdB.PrepareCarefully {
                 return null;
             }
             if (alienRace.BodyTypes.Count > 0) {
-                bool containsMale = alienRace.BodyTypes.Contains(BodyType.Male);
-                bool containsFemale = alienRace.BodyTypes.Contains(BodyType.Female);
+                bool containsMale = alienRace.BodyTypes.Contains(BodyTypeDefOf.Male);
+                bool containsFemale = alienRace.BodyTypes.Contains(BodyTypeDefOf.Female);
                 bool containsBothMaleAndFemale = containsMale && containsFemale;
-                foreach (BodyType type in alienRace.BodyTypes) {
-                    if (type != BodyType.Male || !containsBothMaleAndFemale) {
+                foreach (BodyTypeDef type in alienRace.BodyTypes) {
+                    if (type != BodyTypeDefOf.Male || !containsBothMaleAndFemale) {
                         result.FemaleBodyTypes.Add(type);
                     }
-                    if (type != BodyType.Female || !containsBothMaleAndFemale) {
+                    if (type != BodyTypeDefOf.Female || !containsBothMaleAndFemale) {
                         result.MaleBodyTypes.Add(type);
                     }
                     result.NoGenderBodyTypes.Add(type);

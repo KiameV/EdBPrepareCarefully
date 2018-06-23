@@ -212,7 +212,9 @@ namespace EdB.PrepareCarefully {
                         double totalCost = 0;
                         bool skip = false;
                         foreach (ThingDef ingredientDef in amount.filter.AllowedThingDefs) {
-                            if (ingredientDef == ThingDefOf.Medicine) {
+                            if (ingredientDef == ThingDefOf.MedicineHerbal || 
+                                ingredientDef == ThingDefOf.MedicineIndustrial || 
+                                ingredientDef == ThingDefOf.MedicineUltratech) {
                                 skip = true;
                                 break;
                             }
@@ -241,13 +243,16 @@ namespace EdB.PrepareCarefully {
         }
 
         public double CalculateEquipmentCost(EquipmentSelection equipment) {
-            EquipmentRecord entry = PrepareCarefully.Instance.EquipmentDatabase[equipment.Key];
-            if (entry != null) {
-                return (double)equipment.Count * entry.cost;
+            try
+            {
+                EquipmentRecord entry = PrepareCarefully.Instance.EquipmentDatabase[equipment.Key];
+                if (entry != null)
+                {
+                    return (double)equipment.Count * entry.cost;
+                }
             }
-            else {
-                return 0;
-            }
+            catch { }
+            return 0;
         }
 
         /*

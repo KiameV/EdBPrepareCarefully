@@ -92,7 +92,7 @@ namespace EdB.PrepareCarefully {
             Style.SetGUIColorForButton(RectButtonClearSkills);
             GUI.DrawTexture(RectButtonClearSkills, Textures.TextureButtonClearSkills);
             if (Widgets.ButtonInvisible(RectButtonClearSkills, false)) {
-                SoundDefOf.TickLow.PlayOneShotOnCamera();
+                SoundDefOf.Tick_Low.PlayOneShotOnCamera();
                 SkillsCleared();
             }
             TooltipHandler.TipRegion(RectButtonClearSkills, "EdB.PC.Panel.Skills.ClearTip".Translate());
@@ -101,7 +101,7 @@ namespace EdB.PrepareCarefully {
             Style.SetGUIColorForButton(RectButtonResetSkills);
             GUI.DrawTexture(RectButtonResetSkills, Textures.TextureButtonReset);
             if (Widgets.ButtonInvisible(RectButtonResetSkills, false)) {
-                SoundDefOf.TickLow.PlayOneShotOnCamera();
+                SoundDefOf.Tick_Low.PlayOneShotOnCamera();
                 SkillsReset();
             }
             TooltipHandler.TipRegion(RectButtonResetSkills, "EdB.PC.Panel.Skills.ResetTip".Translate());
@@ -146,7 +146,7 @@ namespace EdB.PrepareCarefully {
                         GUI.color = Color.white;
                         GUI.DrawTexture(rect, image);
                         if (Widgets.ButtonInvisible(rect, false)) {
-                            SoundDefOf.TickTiny.PlayOneShotOnCamera();
+                            SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
                             if (Event.current.button != 1) {
                                 IncreasePassion(skill);
                             }
@@ -182,7 +182,7 @@ namespace EdB.PrepareCarefully {
                         }
                         GUI.DrawTexture(rect, Textures.TextureButtonPrevious);
                         if (Widgets.ButtonInvisible(rect, false)) {
-                            SoundDefOf.TickTiny.PlayOneShotOnCamera();
+                            SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
                             DecreaseSkill(customPawn, skill);
                         }
 
@@ -198,7 +198,7 @@ namespace EdB.PrepareCarefully {
                         }
                         GUI.DrawTexture(rect, Textures.TextureButtonNext);
                         if (Widgets.ButtonInvisible(rect, false)) {
-                            SoundDefOf.TickTiny.PlayOneShotOnCamera();
+                            SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
                             IncreaseSkill(customPawn, skill);
                         }
                     }
@@ -250,7 +250,7 @@ namespace EdB.PrepareCarefully {
                     else {
                         value = Mathf.CeilToInt(x / rect.width * 20f);
                     }
-                    SoundDefOf.TickTiny.PlayOneShotOnCamera();
+                    SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
                     SetSkillLevel(customPawn, skill, value);
                 }
             }

@@ -40,6 +40,8 @@ namespace EdB.PrepareCarefully {
         [NoTranslate]
         private List<string> terrainValidationDisallowed;
 
+        public override int SeedPart => "EdB.PrepareCarefully.GenStep_CustomScatterThings".GetHashCode();
+
         //
         // Properties
         //
@@ -122,7 +124,7 @@ namespace EdB.PrepareCarefully {
         }
 
         public override void Generate(Map map) {
-            if (this.allowOnWater || !map.TileInfo.WaterCovered) {
+            if (this.allowInWaterBiome || !map.TileInfo.WaterCovered) {
                 int count = base.CalculateFinalCount(map);
                 IntRange one;
                 if (this.thingDef.ingestible != null && this.thingDef.ingestible.IsMeal && this.thingDef.stackLimit <= 10) {
@@ -181,7 +183,7 @@ namespace EdB.PrepareCarefully {
                     }
                 }
                 else {
-                    GenSpawn.Spawn(thing, loc, map, rot, false);
+                    GenSpawn.Spawn(thing, loc, map, rot);
                 }
             }
         }

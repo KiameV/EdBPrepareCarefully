@@ -111,7 +111,7 @@ namespace EdB.PrepareCarefully {
 
         public void PrepareGame() {
             // Replace the pawns.
-            Find.GameInitData.startingPawns = PrepareCarefully.Instance.Colonists;
+            Find.GameInitData.startingAndOptionalPawns = PrepareCarefully.Instance.Colonists;
             Find.GameInitData.startingPawnCount = PrepareCarefully.Instance.Colonists.Count;
 
             // This needs some explaining.  We need custom scenario parts to handle animal spawning
@@ -156,7 +156,7 @@ namespace EdB.PrepareCarefully {
                 if (configurePawnPart == null) {
                     continue;
                 }
-                configurePawnPart.pawnCount = Find.GameInitData.startingPawns.Count;
+                configurePawnPart.pawnCount = Find.GameInitData.startingPawnCount;
             }
 
             // Fill in each part list with only the scenario parts that we're not going to replace. 

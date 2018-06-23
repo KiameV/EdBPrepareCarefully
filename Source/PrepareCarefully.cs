@@ -394,29 +394,44 @@ namespace EdB.PrepareCarefully {
         }
 
         public bool AddEquipment(EquipmentRecord entry) {
-            SyncEquipmentRemovals();
-            EquipmentSelection e = Find(entry);
-            if (e == null) {
-                equipment.Add(new EquipmentSelection(entry));
-                return true;
+            try
+            {
+                SyncEquipmentRemovals();
+                EquipmentSelection e = Find(entry);
+                if (e == null)
+                {
+                    equipment.Add(new EquipmentSelection(entry));
+                    return true;
+                }
+                else
+                {
+                    e.Count += entry.stackSize;
+                    return false;
+                }
             }
-            else {
-                e.Count += entry.stackSize;
-                return false;
-            }
+            catch { }
+            return false;
         }
 
-        public bool AddEquipment(EquipmentRecord entry, int count) {
-            SyncEquipmentRemovals();
-            EquipmentSelection e = Find(entry);
-            if (e == null) {
-                equipment.Add(new EquipmentSelection(entry, count));
-                return true;
+        public bool AddEquipment(EquipmentRecord entry, int count)
+        {
+            try
+            {
+                SyncEquipmentRemovals();
+                EquipmentSelection e = Find(entry);
+                if (e == null)
+                {
+                    equipment.Add(new EquipmentSelection(entry, count));
+                    return true;
+                }
+                else
+                {
+                    e.Count += count;
+                    return false;
+                }
             }
-            else {
-                e.Count += count;
-                return false;
-            }
+            catch { }
+            return false;
         }
 
         public void RemoveEquipment(EquipmentSelection equipment) {
@@ -529,14 +544,14 @@ namespace EdB.PrepareCarefully {
             this.customPawnToOriginalPawnMap.Clear();
             this.originalPawnToCustomPawnMap.Clear();
             int pawnCount = Verse.Find.GameInitData.startingPawnCount;
-            foreach (Pawn originalPawn in Verse.Find.GameInitData.startingPawns) {
+            foreach (Pawn originalPawn in Verse.Find.GameInitData.startingAndOptionalPawns) {
                 Pawn copiedPawn = originalPawn.Copy();
                 CustomPawn customPawn = new CustomPawn(copiedPawn);
                 customPawnToOriginalPawnMap.Add(customPawn, originalPawn);
                 originalPawnToCustomPawnMap.Add(originalPawn, customPawn);
             }
             for (int i = 0; i < pawnCount; i++) {
-                Pawn originalPawn = Verse.Find.GameInitData.startingPawns[i];
+                Pawn originalPawn = Verse.Find.GameInitData.startingAndOptionalPawns[i];
                 CustomPawn customPawn = originalPawnToCustomPawnMap[originalPawn];
                 this.pawns.Add(customPawn);
             }
@@ -544,10 +559,10 @@ namespace EdB.PrepareCarefully {
 
         public void InitializeRelationshipManager(List<CustomPawn> pawns) {
             List<CustomPawn> customPawns = new List<CustomPawn>();
-            foreach (Pawn pawn in Verse.Find.GameInitData.startingPawns) {
+            foreach (Pawn pawn in Verse.Find.GameInitData.startingAndOptionalPawns) {
                 customPawns.Add(originalPawnToCustomPawnMap[pawn]);
             }
-            relationshipManager = new RelationshipManager(Verse.Find.GameInitData.startingPawns.GetRange(0, Verse.Find.GameInitData.startingPawnCount).ToList(), customPawns);
+            relationshipManager = new RelationshipManager(Verse.Find.GameInitData.startingAndOptionalPawns.GetRange(0, Verse.Find.GameInitData.startingPawnCount).ToList(), customPawns);
         }
 
     }

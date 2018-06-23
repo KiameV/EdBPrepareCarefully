@@ -62,11 +62,11 @@ namespace EdB.PrepareCarefully {
             if (alienBodyTypesCollection == null) {
                 return null;
             }
-            List<BodyType> bodyTypes = new List<BodyType>();
+            List<BodyTypeDef> bodyTypes = new List<BodyTypeDef>();
             if (alienBodyTypesCollection.Count > 0) {
                 foreach (object o in alienBodyTypesCollection) {
-                    if (o.GetType() == typeof(BodyType)) {
-                        bodyTypes.Add((BodyType)o);
+                    if (o.GetType() == typeof(BodyTypeDef)) {
+                        bodyTypes.Add((BodyTypeDef)o);
                     }
                 }
             }

@@ -74,15 +74,16 @@ namespace EdB.PrepareCarefully {
                     }
                 }
                 catch (Exception e) {
-                    Log.Warning("Prepare Carefully failed to classify thing definition while building equipment lists: " + def.defName);
-                    Log.Message("  Exception: " + e.Message);
+                    /*Log.Warning(
+                        "Prepare Carefully failed to classify thing definition while building equipment lists: " + def.defName + System.Environment.NewLine +
+                        "  Exception: " + e.Message);*/
                 }
             }
         }
 
         public EquipmentType ClassifyThingDef(ThingDef def) {
             if (def.weaponTags != null && def.weaponTags.Count > 0) {
-                if (def.equipmentType != Verse.EquipmentType.None && !def.destroyOnDrop && def.canBeSpawningInventory) {
+                if (def.equipmentType != Verse.EquipmentType.None && !def.destroyOnDrop) {
                     return TypeWeapons;
                 }
             }
@@ -137,7 +138,7 @@ namespace EdB.PrepareCarefully {
                 }
             }
 
-            if (def.isBodyPartOrImplant) {
+            if (def.thingCategories.Contains(ThingCategoryDefOf.BodyParts)) {
                 return TypeMedical;
             }
 

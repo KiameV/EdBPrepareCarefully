@@ -4,7 +4,7 @@ using Verse;
 
 namespace EdB.PrepareCarefully {
     public static class PawnLayers {
-        public const int BodyType = 0;
+        public const int BodyTypeDef = 0;
         public const int BottomClothingLayer = 1;
         public const int Pants = 2;
         public const int MiddleClothingLayer = 3;
@@ -18,8 +18,8 @@ namespace EdB.PrepareCarefully {
 
         public static String Label(int layer) {
             switch (layer) {
-                case BodyType:
-                    return "EdB.PC.Pawn.PawnLayer.BodyType".Translate();
+                case BodyTypeDef:
+                    return "EdB.PC.Pawn.PawnLayer.BodyTypeDef".Translate();
                 case HeadType:
                     return "EdB.PC.Pawn.PawnLayer.HeadType".Translate();
                 case Pants:
@@ -41,76 +41,74 @@ namespace EdB.PrepareCarefully {
             }
         }
 
-        public static int ToPawnLayerIndex(ApparelLayer layer) {
-            switch (layer) {
-                case ApparelLayer.OnSkin:
-                    return BottomClothingLayer;
-                case ApparelLayer.Middle:
-                    return MiddleClothingLayer;
-                case ApparelLayer.Shell:
-                    return TopClothingLayer;
-                case ApparelLayer.Overhead:
-                    return Hat;
-                case ApparelLayer.Belt:
-                    return Accessory;
-                default:
-                    return -1;
-            }
+        public static int ToPawnLayerIndex(ApparelLayerDef layer) {
+            if (layer == ApparelLayerDefOf.OnSkin)
+                return BottomClothingLayer;
+            if (layer == ApparelLayerDefOf.Middle)
+                return MiddleClothingLayer;
+            if (layer == ApparelLayerDefOf.Shell)
+                return TopClothingLayer;
+            if (layer == ApparelLayerDefOf.Overhead)
+                return Hat;
+            if (layer == ApparelLayerDefOf.Belt)
+                return Accessory;
+            return -1;
         }
 
-        public static int ToPawnLayerIndex(ApparelProperties apparelProperties) {
-            ApparelLayer layer = apparelProperties.LastLayer;
-            if (layer == ApparelLayer.OnSkin && apparelProperties.bodyPartGroups.Count == 1) {
-                if (apparelProperties.bodyPartGroups[0].Equals(BodyPartGroupDefOf.Legs)) {
+        public static int ToPawnLayerIndex(ApparelProperties apparelProperties)
+        {
+            ApparelLayerDef layer = apparelProperties.LastLayer;
+            if (layer == ApparelLayerDefOf.OnSkin && apparelProperties.bodyPartGroups.Count == 1)
+            {
+                if (apparelProperties.bodyPartGroups[0].Equals(BodyPartGroupDefOf.Legs))
+                {
                     return Pants;
                 }
-                else if (apparelProperties.bodyPartGroups[0].defName == "Hands") {
+                else if (apparelProperties.bodyPartGroups[0].defName == "Hands")
+                {
                     return -1;
                 }
-                else if (apparelProperties.bodyPartGroups[0].defName == "Feet") {
-                    return -1;
-                }
-            }
-            switch (layer) {
-                case ApparelLayer.OnSkin:
-                    return BottomClothingLayer;
-                case ApparelLayer.Middle:
-                    return MiddleClothingLayer;
-                case ApparelLayer.Shell:
-                    return TopClothingLayer;
-                case ApparelLayer.Belt:
-                    return Accessory;
-                case ApparelLayer.Overhead:
-                    return Hat;
-                default: {
-                    Log.Warning("Cannot find matching layer for apparel.  Last layer: " + apparelProperties.LastLayer);
+                else if (apparelProperties.bodyPartGroups[0].defName == "Feet")
+                {
                     return -1;
                 }
             }
+            if (layer == ApparelLayerDefOf.OnSkin)
+                return BottomClothingLayer;
+            if (layer == ApparelLayerDefOf.Middle)
+                return MiddleClothingLayer;
+            if (layer == ApparelLayerDefOf.Shell)
+                return TopClothingLayer;
+            if (layer == ApparelLayerDefOf.Belt)
+                return Accessory;
+            if (layer == ApparelLayerDefOf.Overhead)
+                return Hat;
+            Log.Warning("Cannot find matching layer for apparel.  Last layer: " + apparelProperties.LastLayer);
+            return -1;
         }
 
-        public static ApparelLayer ToApparelLayer(int layer) {
+        public static ApparelLayerDef ToApparelLayer(int layer) {
             switch (layer) {
                 case Pants:
-                    return ApparelLayer.OnSkin;
+                    return ApparelLayerDefOf.OnSkin;
                 case BottomClothingLayer:
-                    return ApparelLayer.OnSkin;
+                    return ApparelLayerDefOf.OnSkin;
                 case MiddleClothingLayer:
-                    return ApparelLayer.Middle;
+                    return ApparelLayerDefOf.Middle;
                 case TopClothingLayer:
-                    return ApparelLayer.Shell;
+                    return ApparelLayerDefOf.Shell;
                 case Hat:
-                    return ApparelLayer.Overhead;
+                    return ApparelLayerDefOf.Overhead;
                 case Accessory:
-                    return ApparelLayer.Belt;
+                    return ApparelLayerDefOf.Belt;
                 default:
-                    return ApparelLayer.OnSkin;
+                    return ApparelLayerDefOf.OnSkin;
             }
         }
 
         public static bool IsApparelLayer(int layer) {
             switch (layer) {
-                case BodyType:
+                case BodyTypeDef:
                     return false;
                 case HeadType:
                     return false;
